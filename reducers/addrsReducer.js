@@ -8,6 +8,7 @@ export const addrsReducer = createReducer(initialState,{
     [ADD_ADDRESS]: (state,action) => {
         return state.concat({
             id: v4(),
+            show: false,
             cep: action.payload.cep,
             street: action.payload.street,
             district: action.payload.district,
