@@ -1,18 +1,43 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { Font } from 'expo';
 import CEPConsult from '../components/CEPConsult';
+
+// Primary color: #f77f00
+// Secondary color: #eae2b7
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            fontLoaded: false
+        };
     }
     static navigationOptions = {
         header: null
     }
+    async componentDidMount() {
+        await Font.loadAsync({
+            'Ubuntu-Regular': require('../assets/fonts/Ubuntu-Regular.ttf'),
+            'Ubuntu-Light': require('../assets/fonts/Ubuntu-Light.ttf'),
+            'Ubuntu-Bold': require('../assets/fonts/Ubuntu-Bold.ttf'),
+            'Ubuntu-Italic': require('../assets/fonts/Ubuntu-Italic.ttf')
+        });
+        this.setState({
+            fontLoaded: true
+        });
+    }
+    renderHome() {
+        if (this.state.fontLoaded) {
+            return <CEPConsult/>;
+        } else {
+            return <ActivityIndicator size='large' color='#f77f00'/>;
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
-                <CEPConsult/>
+                {this.renderHome()}
             </View>
         );
     }

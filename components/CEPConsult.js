@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: '#eae2b7',
         fontSize: 20,
+        fontFamily: 'Ubuntu-Bold',
         color: '#b7b087'
     },
     button: {
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     },
     buttonTitle: {
         fontSize: 20,
+        fontFamily: 'Ubuntu-Regular',
         color: '#ffffe9'
     }
 });
