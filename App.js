@@ -1,12 +1,23 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Home from './screens/Home';
+import React from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import Routers from './routers/Routers';
+import reducer from './reducers/rootReducer';
 
-const StackNavigator = createStackNavigator({
-    home: {
-        screen: Home
+const store = createStore(reducer);
+
+store.subscribe(
+    () => {
+        console.log(store.getState());
     }
-});
+);
 
-const AppContainer = createAppContainer(StackNavigator);
+function App() {
+    return (
+        <Provider store={store}>
+            <Routers/>
+        </Provider>
+    );
+}
 
-export default AppContainer;
+export default App;

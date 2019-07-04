@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { Font } from 'expo';
+import * as Font from 'expo-font';
 import CEPConsult from '../components/CEPConsult';
 
 // Primary color: #f77f00

@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { addAddress } from '../actions/addrsActions';
 
-function CEPConsult() {
+function CEPConsult(props) {
     const [CEPInput, setCEPInput] = React.useState('');
     return (
         <View>
@@ -12,7 +14,22 @@ function CEPConsult() {
                 value={CEPInput}
                 onChangeText={(text) => {setCEPInput(text)}}
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={
+                    () => {
+                        props.addAddress({
+                            cep: '68741050',
+                            street: 'Alameda Índio Betan',
+                            district: 'Saudade I',
+                            city: 'Castanhal',
+                            state: 'PA',
+                            lat: '-1.2989911',
+                            lng: '-47.9383571',
+                            ddd: '91'
+                        });
+                    }
+                }>
                 <Text style={styles.buttonTitle}>Consultar CEP</Text>
             </TouchableOpacity>
         </View>
@@ -47,4 +64,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CEPConsult;
+function mapDispatchToProps(dispatch) {
+    return {
+        addAddress: (addr) => {dispatch(addAddress(addr))}
+    };
+}
+
+export default connect(null,mapDispatchToProps)(CEPConsult);
