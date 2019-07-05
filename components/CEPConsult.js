@@ -12,9 +12,9 @@ class CEPConsult extends React.Component {
             searchLoading: false
         };
     }
-    consult() {
+    async consult() {
         const url = 'https://cep.awesomeapi.com.br/json/' + this.state.textInput;
-        axios.get(url)
+        await axios.get(url)
             .then(
                 (res) => {
                     const addr = res.data;
