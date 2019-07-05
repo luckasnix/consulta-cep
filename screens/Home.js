@@ -29,7 +29,7 @@ class Home extends React.Component {
     }
     renderHome() {
         if (this.state.fontLoaded) {
-            return <CEPConsult/>;
+            return <CEPConsult navigate={() => {this.props.navigation.navigate('detail')}}/>;
         } else {
             return <ActivityIndicator size='large' color='#f77f00'/>;
         }

@@ -31,6 +31,7 @@ class CEPConsult extends React.Component {
                     this.props.makeVisible({
                         cep: addr.cep
                     });
+                    this.props.navigate();
                 }
             )
             .catch(
