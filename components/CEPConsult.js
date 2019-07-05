@@ -1,39 +1,86 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { addAddress } from '../actions/addrsActions';
 
-function CEPConsult(props) {
-    const [CEPInput, setCEPInput] = React.useState('');
-    return (
-        <View>
-            <TextInput
-                style={styles.input}
-                keyboardType='numeric'
-                maxLength={8}
-                value={CEPInput}
-                onChangeText={(text) => {setCEPInput(text)}}
-            />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={
-                    () => {
-                        props.addAddress({
-                            cep: '68741050',
-                            street: 'Alameda Índio Betan',
-                            district: 'Saudade I',
-                            city: 'Castanhal',
-                            state: 'PA',
-                            lat: '-1.2989911',
-                            lng: '-47.9383571',
-                            ddd: '91'
-                        });
+class CEPConsult extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            textInput: '',
+            searchLoading: false
+        };
+    }
+    consult() {
+        const url = 'https://cep.awesomeapi.com.br/json/' + this.state.textInput;
+        axios.get(url)
+            .then(
+                (res) => {
+                    const addr = res.data;
+                    this.props.addAddress({
+                        cep: addr.cep,
+                        street: addr.address,
+                        district: addr.district,
+                        city: addr.city,
+                        state: addr.state,
+                        lat: addr.lat,
+                        lng: addr.lng,
+                        ddd: addr.ddd
+                    });
+                }
+            )
+            .catch(
+                () => {
+                    Alert.alert('CEP inválido!', 'Endereço não encontrado. Tente novamente.');
+                }
+            ).finally(
+                () => {
+                    this.setState({
+                        textInput: '',
+                        searchLoading: false
+                    });
+                }
+            );
+    }
+    renderButtonTitle() {
+        if (!this.state.searchLoading) {
+            return <Text style={styles.buttonTitle}>Consultar CEP</Text>;
+        } else {
+            return <ActivityIndicator size='small' color='#ffffe9'/>
+        }
+    }
+    render() {
+        return (
+            <View>
+                <TextInput
+                    style={styles.input}
+                    keyboardType='numeric'
+                    maxLength={8}
+                    value={this.state.textInput}
+                    onChangeText={
+                        (text) => {
+                            this.setState({
+                                textInput: text
+                            });
+                        }
                     }
-                }>
-                <Text style={styles.buttonTitle}>Consultar CEP</Text>
-            </TouchableOpacity>
-        </View>
-    );
+                />
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={
+                        () => {
+                            this.setState({
+                                searchLoading: true
+                            });
+                            this.consult();
+                        }
+                    }>
+                    {this.renderButtonTitle()}
+                </TouchableOpacity>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
