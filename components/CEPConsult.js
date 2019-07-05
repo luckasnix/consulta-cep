@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { addAddress } from '../actions/addrsActions';
+import { addAddress, makeVisible } from '../actions/addrsActions';
 
 class CEPConsult extends React.Component {
     constructor(props) {
@@ -27,6 +27,9 @@ class CEPConsult extends React.Component {
                         lat: addr.lat,
                         lng: addr.lng,
                         ddd: addr.ddd
+                    });
+                    this.props.makeVisible({
+                        cep: addr.cep
                     });
                 }
             )
@@ -113,7 +116,8 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
     return {
-        addAddress: (addr) => {dispatch(addAddress(addr))}
+        addAddress: (addr) => {dispatch(addAddress(addr))},
+        makeVisible: (addr) => {dispatch(makeVisible(addr))}
     };
 }
 

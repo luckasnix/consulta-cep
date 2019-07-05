@@ -14,3 +14,13 @@ export function addAddress(addr) {
         }
     };
 }
+
+export const MAKE_VISIBLE = 'MAKE_VISIBLE';
+export function makeVisible(addr) {
+    return {
+        type: MAKE_VISIBLE,
+        payload: {
+            cep: addr.cep
+        }
+    };
+}

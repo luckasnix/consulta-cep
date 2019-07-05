@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-create-reducer';
-import { ADD_ADDRESS } from '../actions/addrsActions';
+import { ADD_ADDRESS, MAKE_VISIBLE } from '../actions/addrsActions';
 
 export const initialState = [];
 
@@ -16,5 +16,22 @@ export const addrsReducer = createReducer(initialState,{
             lng: action.payload.lng,
             ddd: action.payload.ddd
         });
+    },
+    [MAKE_VISIBLE]: (state,action) => {
+        return state.map(
+            (cur) => {
+                if (cur.cep === action.payload.cep) {
+                    return {
+                        ...cur,
+                        show: true
+                    };
+                } else {
+                    return {
+                        ...cur,
+                        show: false
+                    };
+                }
+            }
+        );
     }
 });
