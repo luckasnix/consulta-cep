@@ -69,6 +69,14 @@ class CEPConsult extends React.Component {
                             });
                         }
                     }
+                    onSubmitEditing={
+                        () => {
+                            this.setState({
+                                searchLoading: true
+                            });
+                            this.consult();
+                        }
+                    }
                 />
                 <TouchableOpacity
                     style={styles.button}
@@ -79,7 +87,8 @@ class CEPConsult extends React.Component {
                             });
                             this.consult();
                         }
-                    }>
+                    }
+                >
                     {this.renderButtonTitle()}
                 </TouchableOpacity>
             </View>

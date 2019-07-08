@@ -1,16 +1,11 @@
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import Routers from './routers/Routers';
 import reducer from './reducers/rootReducer';
 
-const store = createStore(reducer);
-
-store.subscribe(
-    () => {
-        console.log(store.getState());
-    }
-);
+const store = createStore(reducer, applyMiddleware(ReduxThunk));
 
 function App() {
     return (
