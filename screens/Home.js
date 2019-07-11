@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import CEPConsult from '../components/CEPConsult';
@@ -6,7 +6,7 @@ import CEPConsult from '../components/CEPConsult';
 // Primary color: #f77f00
 // Secondary color: #eae2b7
 
-class Home extends React.Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,7 +29,11 @@ class Home extends React.Component {
     }
     renderHome() {
         if (this.state.fontLoaded) {
-            return <CEPConsult navigate={() => {this.props.navigation.navigate('detail')}}/>;
+            return <CEPConsult navigate={
+                () => {
+                    this.props.navigation.navigate('detail');
+                }
+        }/>;
         } else {
             return <ActivityIndicator size='large' color='#f77f00'/>;
         }

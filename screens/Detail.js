@@ -1,13 +1,15 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { View, Dimensions, StyleSheet } from 'react-native';
+import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
+import InfoCell from '../components/InfoCell';
 
-class Detail extends React.Component {
+class Detail extends Component {
     constructor(props) {
         super(props);
     }
     static navigationOptions = {
-        title: 'CEP',
+        title: 'Endereço',
         headerTintColor: '#ffffe9',
         headerStyle: {
             backgroundColor: '#f77f00'
@@ -27,12 +29,26 @@ class Detail extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.item}>{this.visibleAddr().cep}</Text>
-                <Text style={styles.item}>{this.visibleAddr().street}</Text>
-                <Text style={styles.item}>{this.visibleAddr().district}</Text>
-                <Text style={styles.item}>{this.visibleAddr().city}</Text>
-                <Text style={styles.item}>{this.visibleAddr().state}</Text>
-                <Text style={styles.item}>{this.visibleAddr().ddd}</Text>
+                <View style={styles.infoContainer}>
+                    <InfoCell title={this.visibleAddr().cep}/>
+                    <InfoCell title={this.visibleAddr().street}/>
+                    <InfoCell title={this.visibleAddr().district}/>
+                    <InfoCell title={this.visibleAddr().city}/>
+                    <InfoCell title={this.visibleAddr().state}/>
+                    <InfoCell title={this.visibleAddr().ddd}/>
+                </View>
+                <View style={styles.mapContainer}>
+                    <MapView
+                        style={styles.map}
+                        initialRegion={{
+                            latitude: parseFloat(this.visibleAddr().lat),
+                            longitude: parseFloat(this.visibleAddr().lng),
+                            latitudeDelta: 0.0122,
+                            longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122
+
+                        }}
+                    />
+                </View>
             </View>
         );
     }
@@ -41,15 +57,20 @@ class Detail extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexDirection: 'column',
         backgroundColor: '#ffffe9'
     },
-    item: {
-        fontSize: 20,
-        fontFamily: 'Ubuntu-Regular',
-        color: '#f77f00'
-    }
+    infoContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
+    mapContainer: {
+        flex: 1
+    },
+    map: {
+        flex: 1
+    } 
 });
 
 function mapStateToProps(state) {
