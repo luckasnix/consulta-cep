@@ -1,18 +1,15 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import Routers from './routers/Routers';
-import reducer from './reducers/rootReducer';
+import Navigator from './navigation/Navigator';
+import reducer from './store/reducers/rootReducer';
 
-const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+const store = createStore(reducer);
 
 function App() {
     return (
         <Provider store={store}>
-            <Routers/>
+            <Navigator/>
         </Provider>
     );
 }

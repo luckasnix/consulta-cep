@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { addAddress, makeVisible } from '../actions/addrsActions';
+import { addAddress, makeVisible } from '../store/actions/addrsActions';
 
 class CEPConsult extends React.Component {
     constructor(props) {
