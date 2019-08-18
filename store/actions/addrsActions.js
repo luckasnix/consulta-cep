@@ -1,4 +1,4 @@
-export const ADD_ADDRESS = 'ADD_ADDRESS';
+export const ADD_ADDRESS = 'ADD_ADDRESS'
 export function addAddress(addr) {
     return {
         type: ADD_ADDRESS,
@@ -12,15 +12,15 @@ export function addAddress(addr) {
             lng: addr.lng,
             ddd: addr.ddd
         }
-    };
+    }
 }
 
-export const MAKE_VISIBLE = 'MAKE_VISIBLE';
+export const MAKE_VISIBLE = 'MAKE_VISIBLE'
 export function makeVisible(addr) {
     return {
         type: MAKE_VISIBLE,
         payload: {
             cep: addr.cep
         }
-    };
+    }
 }

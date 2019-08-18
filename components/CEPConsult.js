@@ -1,23 +1,23 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import { addAddress, makeVisible } from '../store/actions/addrsActions';
+import React from 'react'
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { addAddress, makeVisible } from '../store/actions/addrsActions'
 
 class CEPConsult extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             textInput: '',
             searchLoading: false
-        };
+        }
     }
     async consult() {
-        const url = 'https://cep.awesomeapi.com.br/json/' + this.state.textInput;
+        const url = 'https://cep.awesomeapi.com.br/json/' + this.state.textInput
         await axios.get(url)
             .then(
                 (res) => {
-                    const addr = res.data;
+                    const addr = res.data
                     this.props.addAddress({
                         cep: addr.cep,
                         street: addr.address,
@@ -27,29 +27,29 @@ class CEPConsult extends React.Component {
                         lat: addr.lat,
                         lng: addr.lng,
                         ddd: addr.ddd
-                    });
+                    })
                     this.props.makeVisible({
                         cep: addr.cep
-                    });
-                    this.props.navigate();
+                    })
+                    this.props.navigate()
                 }
             )
             .catch(
                 () => {
-                    Alert.alert('CEP inválido!', 'Endereço não encontrado. Tente novamente.');
+                    Alert.alert('CEP inválido!', 'Endereço não encontrado. Tente novamente.')
                 }
             ).finally(
                 () => {
                     this.setState({
                         textInput: '',
                         searchLoading: false
-                    });
+                    })
                 }
-            );
+            )
     }
     renderButtonTitle() {
         if (!this.state.searchLoading) {
-            return <Text style={styles.buttonTitle}>Consultar CEP</Text>;
+            return <Text style={styles.buttonTitle}>Consultar CEP</Text>
         } else {
             return <ActivityIndicator size='small' color='#ffffe9'/>
         }
@@ -66,15 +66,15 @@ class CEPConsult extends React.Component {
                         (text) => {
                             this.setState({
                                 textInput: text
-                            });
+                            })
                         }
                     }
                     onSubmitEditing={
                         () => {
                             this.setState({
                                 searchLoading: true
-                            });
-                            this.consult();
+                            })
+                            this.consult()
                         }
                     }
                 />
@@ -84,15 +84,15 @@ class CEPConsult extends React.Component {
                         () => {
                             this.setState({
                                 searchLoading: true
-                            });
-                            this.consult();
+                            })
+                            this.consult()
                         }
                     }
                 >
                     {this.renderButtonTitle()}
                 </TouchableOpacity>
             </View>
-        );
+        )
     }
 }
 
@@ -122,13 +122,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Ubuntu-Regular',
         color: '#ffffe9'
     }
-});
+})
 
 function mapDispatchToProps(dispatch) {
     return {
         addAddress: (addr) => {dispatch(addAddress(addr))},
         makeVisible: (addr) => {dispatch(makeVisible(addr))}
-    };
+    }
 }
 
-export default connect(null,mapDispatchToProps)(CEPConsult);
+export default connect(null,mapDispatchToProps)(CEPConsult)

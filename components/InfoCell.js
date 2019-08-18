@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
 function InfoCell(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.content}>{props.title}</Text>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Ubuntu-Bold',
         color: '#b7b087'
     }
-});
+})
 
-export default InfoCell;
+export default InfoCell

@@ -1,6 +1,6 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Home from '../screens/Home';
-import Detail from '../screens/Detail';
+import { createStackNavigator, createAppContainer } from 'react-navigation'
+import Home from '../screens/Home'
+import Detail from '../screens/Detail'
 
 const StackNavigator = createStackNavigator({
     home: {
@@ -9,8 +9,8 @@ const StackNavigator = createStackNavigator({
     detail: {
         screen: Detail
     }
-});
+})
 
-const AppContainer = createAppContainer(StackNavigator);
+const AppContainer = createAppContainer(StackNavigator)
 
-export default AppContainer;
+export default AppContainer

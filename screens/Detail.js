@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
-import { connect } from 'react-redux';
-import InfoCell from '../components/InfoCell';
+import React, { Component } from 'react'
+import { View, Dimensions, StyleSheet } from 'react-native'
+import MapView from 'react-native-maps'
+import { connect } from 'react-redux'
+import InfoCell from '../components/InfoCell'
 
 class Detail extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
     static navigationOptions = {
         title: 'Endereço',
@@ -22,9 +22,9 @@ class Detail extends Component {
     visibleAddr() {
         return this.props.addrs.filter(
             (cur) => {
-                return cur.show === true;
+                return cur.show === true
             }
-        )[0];
+        )[0]
     }
     render() {
         return (
@@ -50,7 +50,7 @@ class Detail extends Component {
                     />
                 </View>
             </View>
-        );
+        )
     }
 }
 
@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
     map: {
         flex: 1
     } 
-});
+})
 
 function mapStateToProps(state) {
     return {
         addrs: state.addrs
-    };
+    }
 }
 
-export default connect(mapStateToProps)(Detail);
+export default connect(mapStateToProps)(Detail)

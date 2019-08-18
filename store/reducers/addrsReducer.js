@@ -1,7 +1,7 @@
-import { createReducer } from 'redux-create-reducer';
-import { ADD_ADDRESS, MAKE_VISIBLE } from '../actions/addrsActions';
+import { createReducer } from 'redux-create-reducer'
+import { ADD_ADDRESS, MAKE_VISIBLE } from '../actions/addrsActions'
 
-export const initialState = [];
+export const initialState = []
 
 export const addrsReducer = createReducer(initialState,{
     [ADD_ADDRESS]: (state,action) => {
@@ -15,7 +15,7 @@ export const addrsReducer = createReducer(initialState,{
             lat: action.payload.lat,
             lng: action.payload.lng,
             ddd: action.payload.ddd
-        });
+        })
     },
     [MAKE_VISIBLE]: (state,action) => {
         return state.map(
@@ -24,14 +24,14 @@ export const addrsReducer = createReducer(initialState,{
                     return {
                         ...cur,
                         show: true
-                    };
+                    }
                 } else {
                     return {
                         ...cur,
                         show: false
-                    };
+                    }
                 }
             }
-        );
+        )
     }
-});
+})
